@@ -28,8 +28,6 @@ frameImg.src = 'assets/frame.png';
 frameImg.onload = () => { frameImage = frameImg; if (userImage) render(); };
 
 // Upload handlers
-uploadArea.addEventListener('click', () => fileInput.click());
-
 uploadArea.addEventListener('dragover', (e) => {
   e.preventDefault();
   uploadArea.classList.add('drag-over');
