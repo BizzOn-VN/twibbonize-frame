@@ -12,9 +12,12 @@ const scaleSlider = document.getElementById('scale');
 const btnReset = document.getElementById('btn-reset');
 const btnDownload = document.getElementById('btn-download');
 const downloadHint = document.getElementById('download-hint');
-const iosImgWrap = document.getElementById('ios-img-wrap');
-const iosImg = document.getElementById('ios-img');
+const resultImg = document.getElementById('result-img');
+const hintIcon = document.getElementById('hint-icon');
+const hintText = document.getElementById('hint-text');
 const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const isAndroid = /android/i.test(navigator.userAgent);
+const isMobile = isIOS || isAndroid;
 
 canvas.width = SIZE;
 canvas.height = SIZE;
@@ -92,8 +95,7 @@ btnReset.addEventListener('click', () => {
   userImage = null;
   fileInput.value = '';
   downloadHint.classList.add('hidden');
-  iosImgWrap.classList.add('hidden');
-  iosImg.src = '';
+  resultImg.src = '';
   stepPreview.classList.add('hidden');
   stepUpload.classList.remove('hidden');
 });
@@ -103,20 +105,16 @@ btnDownload.addEventListener('click', () => {
 
   canvasExport.toBlob((blob) => {
     const url = URL.createObjectURL(blob);
-    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    resultImg.src = url;
 
-    if (isIOS) {
-      iosImg.src = url;
-      iosImgWrap.classList.remove('hidden');
+    if (isMobile) {
+      hintIcon.textContent = '👆';
+      hintText.innerHTML = 'Đè nhẹ ngón tay vào ảnh<br/>chọn <strong>Save Image</strong>';
     } else {
-      const link = document.createElement('a');
-      link.download = 'google-ai-frame.png';
-      link.href = url;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      hintIcon.textContent = '🖱️';
+      hintText.innerHTML = 'Click phải chuột vào ảnh<br/>chọn <strong>Save Image As...</strong>';
     }
+
     downloadHint.classList.remove('hidden');
     downloadHint.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }, 'image/png');

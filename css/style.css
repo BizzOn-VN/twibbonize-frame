@@ -152,14 +152,14 @@ footer {
   animation: fadeIn 0.4s ease;
 }
 
-.ios-img-wrap #ios-img {
+.download-hint #result-img {
   width: 100%;
-  max-width: 280px;
+  max-width: 300px;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.15);
 }
 
-.ios-hint {
+.save-hint {
   background: #fff8e1;
   border: 1.5px solid #f59e0b;
   border-radius: 12px;
