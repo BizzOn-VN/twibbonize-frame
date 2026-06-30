@@ -36,21 +36,15 @@
             <label>Thu phóng</label>
             <input type="range" id="scale" min="0.5" max="2.5" step="0.01" value="1" />
           </div>
-          <div class="control-row">
-            <label>Trái / Phải</label>
-            <input type="range" id="pos-x" min="-500" max="500" step="1" value="0" />
-          </div>
-          <div class="control-row">
-            <label>Trên / Dưới</label>
-            <input type="range" id="pos-y" min="-500" max="500" step="1" value="0" />
-          </div>
         </div>
 
         <div class="actions">
           <button id="btn-reset">↩ Chọn lại</button>
           <button id="btn-download" class="primary">⬇ Tải ảnh về</button>
         </div>
-        <p class="ios-note hidden" id="ios-note">📱 iPhone/iPad: ảnh sẽ mở ra tab mới, nhấn giữ ảnh → "Lưu vào Ảnh"</p>
+        <div class="ios-tooltip hidden" id="ios-tooltip">
+          <p>👆 Đè ngón tay nhẹ vào ảnh, chọn <strong>Lưu về Photo</strong></p>
+        </div>
       </div>
     </main>
 

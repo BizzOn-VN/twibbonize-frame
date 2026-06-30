@@ -9,13 +9,10 @@ const canvasExport = document.getElementById('canvas-export');
 const ctx = canvas.getContext('2d');
 const ctxExport = canvasExport.getContext('2d');
 const scaleSlider = document.getElementById('scale');
-const posXSlider = document.getElementById('pos-x');
-const posYSlider = document.getElementById('pos-y');
 const btnReset = document.getElementById('btn-reset');
 const btnDownload = document.getElementById('btn-download');
-const iosNote = document.getElementById('ios-note');
+const iosTooltip = document.getElementById('ios-tooltip');
 const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-if (isIOS && iosNote) iosNote.classList.remove('hidden');
 
 canvas.width = SIZE;
 canvas.height = SIZE;
@@ -77,13 +74,11 @@ function drawComposite(targetCtx) {
 
   if (userImage) {
     const scale = parseFloat(scaleSlider.value);
-    const offsetX = parseInt(posXSlider.value);
-    const offsetY = parseInt(posYSlider.value);
     const ratio = Math.max(SIZE / userImage.width, SIZE / userImage.height);
     const w = userImage.width * ratio * scale;
     const h = userImage.height * ratio * scale;
-    const x = (SIZE - w) / 2 + offsetX;
-    const y = (SIZE - h) / 2 + offsetY;
+    const x = (SIZE - w) / 2;
+    const y = (SIZE - h) / 2;
     targetCtx.drawImage(userImage, x, y, w, h);
   }
 
@@ -94,7 +89,7 @@ function drawComposite(targetCtx) {
 
 function render() { drawComposite(ctx); }
 
-[scaleSlider, posXSlider, posYSlider].forEach(el => el.addEventListener('input', render));
+scaleSlider.addEventListener('input', render);
 
 btnReset.addEventListener('click', () => {
   userImage = null;
@@ -112,6 +107,7 @@ btnDownload.addEventListener('click', () => {
 
     if (isIOS) {
       window.open(url, '_blank');
+      if (iosTooltip) iosTooltip.classList.remove('hidden');
     } else {
       const link = document.createElement('a');
       link.download = 'google-ai-frame.png';
