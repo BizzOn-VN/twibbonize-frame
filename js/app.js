@@ -11,7 +11,8 @@ const ctxExport = canvasExport.getContext('2d');
 const scaleSlider = document.getElementById('scale');
 const btnReset = document.getElementById('btn-reset');
 const btnDownload = document.getElementById('btn-download');
-const iosTooltip = document.getElementById('ios-tooltip');
+const iosSave = document.getElementById('ios-save');
+const iosImg = document.getElementById('ios-img');
 const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 
 canvas.width = SIZE;
@@ -90,6 +91,8 @@ scaleSlider.addEventListener('input', render);
 btnReset.addEventListener('click', () => {
   userImage = null;
   fileInput.value = '';
+  iosSave.classList.add('hidden');
+  iosImg.src = '';
   stepPreview.classList.add('hidden');
   stepUpload.classList.remove('hidden');
 });
@@ -102,8 +105,9 @@ btnDownload.addEventListener('click', () => {
     const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 
     if (isIOS) {
-      window.open(url, '_blank');
-      if (iosTooltip) iosTooltip.classList.remove('hidden');
+      iosImg.src = url;
+      iosSave.classList.remove('hidden');
+      iosSave.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } else {
       const link = document.createElement('a');
       link.download = 'google-ai-frame.png';
