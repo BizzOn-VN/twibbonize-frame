@@ -44,6 +44,8 @@ main { padding: 20px 16px; flex: 1; }
 
 /* Upload area */
 .upload-area {
+  display: block;
+  width: 100%;
   border: 2.5px dashed #f97316;
   border-radius: 16px;
   padding: 48px 20px;
