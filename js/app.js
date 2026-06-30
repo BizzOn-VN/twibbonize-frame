@@ -56,8 +56,6 @@ function loadFile(file) {
     img.onload = () => {
       userImage = img;
       scaleSlider.value = 1;
-      posXSlider.value = 0;
-      posYSlider.value = 0;
       stepUpload.classList.add('hidden');
       stepPreview.classList.remove('hidden');
       render();
