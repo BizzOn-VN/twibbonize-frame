@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Chung vai Vươn mình cùng Google AI</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="assets/frame.png" class="header-thumb" alt="frame" />
+      <h1>Chung vai Vươn mình<br/>cùng Google AI</h1>
+      <p>Tạo ảnh đại diện sự kiện của bạn</p>
+    </header>
+
+    <main>
+      <!-- Step 1: Upload -->
+      <div class="step" id="step-upload">
+        <div class="upload-area" id="upload-area">
+          <input type="file" id="file-input" accept="image/*" hidden />
+          <div class="upload-icon">📷</div>
+          <p>Nhấn để chọn ảnh</p>
+          <span>JPG, PNG – tối đa 10MB</span>
+        </div>
+      </div>
+
+      <!-- Step 2: Preview & Download -->
+      <div class="step hidden" id="step-preview">
+        <div class="preview-wrapper">
+          <canvas id="canvas"></canvas>
+        </div>
+
+        <div class="controls">
+          <div class="control-row">
+            <label>Thu phóng</label>
+            <input type="range" id="scale" min="0.5" max="2.5" step="0.01" value="1" />
+          </div>
+          <div class="control-row">
+            <label>Trái / Phải</label>
+            <input type="range" id="pos-x" min="-500" max="500" step="1" value="0" />
+          </div>
+          <div class="control-row">
+            <label>Trên / Dưới</label>
+            <input type="range" id="pos-y" min="-500" max="500" step="1" value="0" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="btn-reset">↩ Chọn lại</button>
+          <button id="btn-download" class="primary">⬇ Tải ảnh về</button>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>Made with ❤️ by <strong>BizzOn</strong></p>
+    </footer>
+  </div>
+
+  <canvas id="canvas-export" hidden></canvas>
+  <script src="js/app.js"></script>
+</body>
+</html>
