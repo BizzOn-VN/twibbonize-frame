@@ -13,6 +13,9 @@ const posXSlider = document.getElementById('pos-x');
 const posYSlider = document.getElementById('pos-y');
 const btnReset = document.getElementById('btn-reset');
 const btnDownload = document.getElementById('btn-download');
+const iosNote = document.getElementById('ios-note');
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+if (isIOS && iosNote) iosNote.classList.remove('hidden');
 
 canvas.width = SIZE;
 canvas.height = SIZE;
@@ -23,6 +26,7 @@ let userImage = null;
 let frameImage = null;
 
 const frameImg = new Image();
+frameImg.crossOrigin = 'anonymous';
 frameImg.src = 'assets/frame.png';
 frameImg.onload = () => { frameImage = frameImg; if (userImage) render(); };
 
@@ -101,8 +105,21 @@ btnReset.addEventListener('click', () => {
 
 btnDownload.addEventListener('click', () => {
   drawComposite(ctxExport);
-  const link = document.createElement('a');
-  link.download = 'google-ai-frame.png';
-  link.href = canvasExport.toDataURL('image/png');
-  link.click();
+
+  canvasExport.toBlob((blob) => {
+    const url = URL.createObjectURL(blob);
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+    if (isIOS) {
+      window.open(url, '_blank');
+    } else {
+      const link = document.createElement('a');
+      link.download = 'google-ai-frame.png';
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+  }, 'image/png');
 });
