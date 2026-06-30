@@ -24,7 +24,6 @@ let userImage = null;
 let frameImage = null;
 
 const frameImg = new Image();
-frameImg.crossOrigin = 'anonymous';
 frameImg.src = 'assets/frame.png';
 frameImg.onload = () => { frameImage = frameImg; if (userImage) render(); };
 
