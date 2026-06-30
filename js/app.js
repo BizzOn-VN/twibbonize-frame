@@ -11,7 +11,8 @@ const ctxExport = canvasExport.getContext('2d');
 const scaleSlider = document.getElementById('scale');
 const btnReset = document.getElementById('btn-reset');
 const btnDownload = document.getElementById('btn-download');
-const iosSave = document.getElementById('ios-save');
+const downloadHint = document.getElementById('download-hint');
+const iosImgWrap = document.getElementById('ios-img-wrap');
 const iosImg = document.getElementById('ios-img');
 const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 
@@ -90,7 +91,8 @@ scaleSlider.addEventListener('input', render);
 btnReset.addEventListener('click', () => {
   userImage = null;
   fileInput.value = '';
-  iosSave.classList.add('hidden');
+  downloadHint.classList.add('hidden');
+  iosImgWrap.classList.add('hidden');
   iosImg.src = '';
   stepPreview.classList.add('hidden');
   stepUpload.classList.remove('hidden');
@@ -105,8 +107,7 @@ btnDownload.addEventListener('click', () => {
 
     if (isIOS) {
       iosImg.src = url;
-      iosSave.classList.remove('hidden');
-      iosSave.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      iosImgWrap.classList.remove('hidden');
     } else {
       const link = document.createElement('a');
       link.download = 'google-ai-frame.png';
@@ -116,5 +117,7 @@ btnDownload.addEventListener('click', () => {
       document.body.removeChild(link);
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     }
+    downloadHint.classList.remove('hidden');
+    downloadHint.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }, 'image/png');
 });
